@@ -1,0 +1,12 @@
+# CRE project settings — Sila Layer settlement (Slice 3)
+# Repointed from the old integration's Ethereum Sepolia target to Polygon Amoy (PRD §5).
+
+staging-settings:
+  rpcs:
+    - chain-name: polygon-testnet-amoy
+      url: https://rpc-amoy.polygon.technology
+
+production-settings:
+  rpcs:
+    - chain-name: polygon-testnet-amoy
+      url: https://rpc-amoy.polygon.technology

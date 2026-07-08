@@ -1,0 +1,12 @@
+{
+  "schedule": "*/1 * * * *",
+  "backendBaseUrl": "http://localhost:3001",
+  "backendInternalToken": "",
+  "pendingCheckoutsPath": "/internal/checkouts/pending",
+  "onchainResultPath": "/internal/checkouts/onchain-result",
+  "chainSelectorName": "polygon-testnet-amoy",
+  "isTestnet": true,
+  "settlementReceiverAddress": "0x0000000000000000000000000000000000000000",
+  "gasLimit": "700000",
+  "maxBatch": 3
+}
