@@ -35,21 +35,46 @@ contract MerchantRegistry is Ownable {
     /// @notice Merchant records keyed by merchant address.
     mapping(address => Merchant) private _merchants;
 
+    /// @notice Address allowed to register merchants in addition to the owner.
+    /// @dev Set to the CRE MerchantRegistryReceiver so DON-verified KYB results can be written
+    ///      on-chain without granting it full ownership. Zero address disables the registrar path.
+    address private _registrar;
+
     event MerchantRegistered(address indexed merchant, Zone zone, string label);
     event MerchantActiveSet(address indexed merchant, bool active);
+    event RegistrarUpdated(address indexed previousRegistrar, address indexed newRegistrar);
 
     error ZeroAddress();
     error InvalidZone();
+    error NotOwnerOrRegistrar(address caller);
 
     constructor(address initialOwner) Ownable(initialOwner) {}
 
+    /// @dev Permits the owner or the configured registrar (CRE receiver) to register merchants.
+    modifier onlyOwnerOrRegistrar() {
+        if (msg.sender != owner() && msg.sender != _registrar) revert NotOwnerOrRegistrar(msg.sender);
+        _;
+    }
+
+    /// @notice The address currently allowed to register merchants alongside the owner.
+    function registrar() external view returns (address) {
+        return _registrar;
+    }
+
+    /// @notice Set (or clear) the registrar allowed to call `registerMerchant`.
+    /// @dev Owner-only. Set to the deployed MerchantRegistryReceiver; pass address(0) to disable.
+    function setRegistrar(address newRegistrar) external onlyOwner {
+        emit RegistrarUpdated(_registrar, newRegistrar);
+        _registrar = newRegistrar;
+    }
+
     /// @notice Register (or re-attest) a merchant with a regulatory zone and label.
-    /// @dev Owner-only admin attestation. Registering sets the merchant active.
+    /// @dev Owner- or registrar-attested. Registering sets the merchant active.
     ///      Re-registering an existing merchant overwrites zone/label and re-activates.
     /// @param merchant The merchant's settlement address.
     /// @param zone     The regulatory zone (must not be `Unregistered`).
     /// @param label    Human-readable label for the dashboard.
-    function registerMerchant(address merchant, Zone zone, string calldata label) external onlyOwner {
+    function registerMerchant(address merchant, Zone zone, string calldata label) external onlyOwnerOrRegistrar {
         if (merchant == address(0)) revert ZeroAddress();
         if (zone == Zone.Unregistered) revert InvalidZone();
 

@@ -34,8 +34,8 @@ contract MerchantRegistryTest is Test {
         registry.registerMerchant(difcMerchant, MerchantRegistry.Zone.DIFC, "DIFC Store");
     }
 
-    function test_RevertWhen_NonOwnerRegisters() public {
-        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, stranger));
+    function test_RevertWhen_NonOwnerOrRegistrarRegisters() public {
+        vm.expectRevert(abi.encodeWithSelector(MerchantRegistry.NotOwnerOrRegistrar.selector, stranger));
         vm.prank(stranger);
         registry.registerMerchant(mainlandMerchant, MerchantRegistry.Zone.Mainland, "x");
     }

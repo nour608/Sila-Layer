@@ -1,0 +1,19 @@
+# CRE workflow settings — kyb-workflow (Slice 4)
+# Cron-poll a pending-KYB endpoint, query Sumsub, and submit DON-signed reports to
+# MerchantRegistryReceiver for on-chain merchant registration.
+
+staging-settings:
+  user-workflow:
+    workflow-name: "Sila LayerKyb-staging"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.staging.json"
+    secrets-path: "./secrets.yaml"
+
+production-settings:
+  user-workflow:
+    workflow-name: "Sila LayerKyb-production"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.production.json"
+    secrets-path: "./secrets.yaml"

@@ -1,0 +1,13 @@
+{
+  "schedule": "*/1 * * * *",
+  "backendBaseUrl": "https://api.sila-layer.com",
+  "backendInternalToken": "",
+  "pendingKybPath": "/internal/kyb/pending",
+  "onchainResultPath": "/internal/kyb/onchain-result",
+  "sumsubBaseUrl": "https://api.sumsub.com",
+  "chainSelectorName": "polygon-testnet-amoy",
+  "isTestnet": true,
+  "merchantRegistryReceiverAddress": "0x0000000000000000000000000000000000000000",
+  "gasLimit": "700000",
+  "maxBatch": 25
+}

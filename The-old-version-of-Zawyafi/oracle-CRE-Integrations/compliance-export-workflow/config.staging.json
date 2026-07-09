@@ -1,0 +1,15 @@
+{
+  "schedule": "*/1 * * * *",
+  "backendBaseUrl": "https://api.sila-layer.com",
+  "backendInternalToken": "",
+  "readyPath": "/internal/compliance/ready",
+  "resultPath": "/internal/compliance/report-result",
+  "chainSelectorName": "ethereum-testnet-sepolia",
+  "isTestnet": true,
+  "revenueRegistryAddress": "0xfDb35eaeAB99fbC5eBD9D5929e2233acc5ee0BEA",
+  "revenueRegistryDeployBlock": "0",
+  "maxBatch": 25,
+  "scanLookbackBlocks": "150000",
+  "minConfirmations": 3,
+  "resultPostMaxAttempts": 2
+}
