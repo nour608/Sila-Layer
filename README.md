@@ -45,9 +45,6 @@ frontend/            Next.js app — landing page, merchant dashboard, docs, adm
 
 Test suite includes fuzz and invariant tests (`SettlementRouter.fuzz.t.sol`, `SettlementRouter.invariant.t.sol`, `ConversionVault.t.sol`) — run with `forge test`.
 
-**Deployment status (Polygon Amoy):**
-`[fill in: SettlementRouter, MerchantRegistry, ConversionVault, MockAEDPT addresses + a real Settled-event transaction hash + Polygonscan Amoy link, once DeployAndSettle.s.sol has been run]`
-
 ### `cre-workflows/`
 
 Two Chainlink CRE workflows (TypeScript SDK), cron-triggered:
