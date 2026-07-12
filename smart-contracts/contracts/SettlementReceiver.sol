@@ -8,16 +8,7 @@ import {SettlementRouter} from "./SettlementRouter.sol";
 import {MerchantRegistry} from "./MerchantRegistry.sol";
 
 /// @title SettlementReceiver
-/// @notice CRE consumer/adapter: receives DON-signed reports from the Chainlink
-///         KeystoneForwarder and forwards each checkout to SettlementRouter.settle(...).
-/// @dev CRE cannot call arbitrary functions — it only delivers reports to onReport() on an
-///      IReceiver (see docs.chain.link "Onchain Write"). This adapter is that mailbox, so the
-///      already-audited SettlementRouter stays FROZEN and unmodified. Security mirrors
-///      Chainlink's ReceiverTemplate: only the trusted forwarder may call onReport, with
-///      optional workflow-author / workflow-id validation for defense-in-depth.
-///
-///      The report payload is the ABI-encoded settlement instruction:
-///        abi.encode(address merchant, address payer, uint256 amount, uint8 purpose)
+/// @notice Receives settlement instructions from the CRE forwarder and forwards them to the router.
 contract SettlementReceiver is IReceiver, Ownable {
     SettlementRouter public immutable router;
 
@@ -38,10 +29,6 @@ contract SettlementReceiver is IReceiver, Ownable {
     error InvalidWorkflowId(bytes32 received, bytes32 expected);
     error InvalidPurpose(uint8 purpose);
 
-    /// @param router_    The (frozen) SettlementRouter to forward settlements to.
-    /// @param forwarder_ The trusted KeystoneForwarder for the target network.
-    ///                   Use the MockKeystoneForwarder address when running `cre workflow simulate`.
-    /// @param owner_     Admin able to update forwarder/validation config.
     constructor(SettlementRouter router_, address forwarder_, address owner_) Ownable(owner_) {
         if (address(router_) == address(0)) revert InvalidRouter();
         if (forwarder_ == address(0)) revert InvalidForwarder();
@@ -50,10 +37,6 @@ contract SettlementReceiver is IReceiver, Ownable {
         emit ForwarderUpdated(address(0), forwarder_);
     }
 
-    /// @inheritdoc IReceiver
-    /// @dev Called by the KeystoneForwarder after it verifies DON signatures. Decodes the
-    ///      settlement instruction and calls the router. The router remains the sole source of
-    ///      truth for rail selection and merchant eligibility — this adapter adds no rail logic.
     function onReport(bytes calldata metadata, bytes calldata report) external override {
         if (msg.sender != s_forwarder) revert InvalidSender(msg.sender, s_forwarder);
 
@@ -73,7 +56,6 @@ contract SettlementReceiver is IReceiver, Ownable {
         if (purposeRaw > uint8(type(MerchantRegistry.Purpose).max)) revert InvalidPurpose(purposeRaw);
         MerchantRegistry.Purpose purpose = MerchantRegistry.Purpose(purposeRaw);
 
-        // Router enforces registration/active/rail rules and reverts with named errors.
         router.settle(merchant, payer, amount, purpose);
         emit Forwarded(merchant, payer, amount, purpose);
     }
@@ -81,8 +63,6 @@ contract SettlementReceiver is IReceiver, Ownable {
     function supportsInterface(bytes4 interfaceId) external pure override returns (bool) {
         return interfaceId == type(IReceiver).interfaceId || interfaceId == type(IERC165).interfaceId;
     }
-
-    // --- admin config (mirrors ReceiverTemplate) ---
 
     function getForwarder() external view returns (address) {
         return s_forwarder;
@@ -104,8 +84,6 @@ contract SettlementReceiver is IReceiver, Ownable {
         s_expectedWorkflowId = workflowId;
     }
 
-    /// @dev Metadata layout delivered by the forwarder: 32-byte workflowId, 10-byte workflow
-    ///      name, 20-byte workflow owner (author). See Chainlink ReceiverTemplate.
     function _decodeMetadata(bytes calldata metadata)
         internal
         pure

@@ -23,7 +23,7 @@ import { encodeAbiParameters, parseAbiParameters } from "viem";
 import { z } from "zod";
 
 /**
- * KYB workflow (Slice 4).
+ * KYB workflow.
  *
  * Cron-polls a "pending KYB" endpoint, then for each applicant:
  *  1. Calls Sumsub (HMAC-signed) for the review result.

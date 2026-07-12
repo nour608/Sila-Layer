@@ -249,7 +249,7 @@ contract ConversionVaultTest is Test {
         assertEq(
             aedpt.balanceOf(swapper) - before,
             367,
-            "1 USDC  3.67 AED (367 raw)"
+            "1 USDC = 3.67 AED (367 raw)"
         );
     }
 

@@ -1,0 +1,348 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import "tailwindcss";
+
+/* ─── Brand palette ──────────────────────────────────────────────────────── */
+:root {
+  --ink: #000000;
+  /* deep black */
+  --limestone: #fafafa;
+  /* very light gray instead of yellow-stone */
+  --dirham-teal: #0f6b5c;
+  /* primary actions */
+  --brass: #b08d57;
+  --ash: #525252;
+  --rust: #a6431f;
+  --paper: #ffffff;
+
+  /* USDC rail */
+  --usdc-navy: #1c4a8a;
+
+  /* Borders */
+  --border: #e5e7eb;
+  --border-paper: #f3f4f6;
+
+  /* New design tokens */
+  --surface: #ffffff;
+  --surface-alt: #f9fafb;
+  --text-primary: #000000;
+  --text-muted: #6b7280;
+  --text-subtle: #9ca3af;
+
+  /* Sidebar dark */
+  --sidebar-bg: #0b1d1a;
+  --sidebar-text: rgba(255, 255, 255, 0.75);
+  --sidebar-active: #0f6b5c;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Code highlight colors */
+  --code-bg: #f3f4f6;
+  --code-text: #0f6b5c;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Dark theme overrides ────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --ink: #ffffff;
+  --limestone: #0f1410;
+  --dirham-teal: #14b89e;
+  --brass: #d4ab6b;
+  --ash: #a0aec0;
+  --rust: #e07a4f;
+  --paper: #161b17;
+
+  --usdc-navy: #4a8fdb;
+
+  --border: #2a302d;
+  --border-paper: #1e2421;
+
+  --surface: #131815;
+  --surface-alt: #1a1f1c;
+  --text-primary: #f0f4f2;
+  --text-muted: #8b9794;
+  --text-subtle: #6b746f;
+
+  --sidebar-bg: #0b1d1a;
+  --sidebar-text: rgba(255, 255, 255, 0.75);
+  --sidebar-active: #14b89e;
+
+  --code-bg: #1a1f1c;
+  --code-text: #14b89e;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Tailwind v4 theme tokens ───────────────────────────────────────────── */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-limestone: var(--limestone);
+  --color-dirham-teal: var(--dirham-teal);
+  --color-brass: var(--brass);
+  --color-ash: var(--ash);
+  --color-rust: var(--rust);
+  --color-paper: var(--paper);
+  --color-usdc-navy: var(--usdc-navy);
+  --color-border: var(--border);
+  --color-border-paper: var(--border-paper);
+  --font-inter: "Inter", system-ui, sans-serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────────────── */
+.font-newsreader {
+  font-family: var(--font-newsreader), "Newsreader", Georgia, serif;
+}
+
+.font-mono {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Global link reset ──────────────────────────────────────────────────── */
+a {
+  color: var(--dirham-teal);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Scrollbar (subtle) ─────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ash);
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(15, 107, 92, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(15, 107, 92, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* ─── Button system ──────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1a3530;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.btn-teal {
+  background: var(--dirham-teal);
+  color: #fff;
+}
+
+.btn-teal:hover {
+  background: #0d5a4d;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+
+.btn-outline:hover {
+  border-color: var(--ash);
+  background: var(--surface-alt);
+  text-decoration: none;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ash);
+  padding: 10px 16px;
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ─── Dashboard sidebar ──────────────────────────────────────────────────── */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 20;
+  overflow-y: auto;
+}
+
+.dashboard-main {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+  background: var(--limestone);
+}
+
+/* ─── Docs sidebar ───────────────────────────────────────────────────────── */
+.docs-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.docs-sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.docs-main {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+  background: var(--surface);
+}
+
+/* ─── Card ───────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}

@@ -20946,7 +20946,10 @@ var onCronTrigger = (runtime2, _payload) => {
   const pending = sendJson(runtime2, {
     url: `${runtime2.config.backendBaseUrl}${runtime2.config.pendingCheckoutsPath}?limit=${runtime2.config.maxBatch}`,
     method: "GET",
-    headers: { Accept: "application/json", Authorization: `Bearer ${backendToken}` }
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${backendToken}`
+    }
   });
   if (!pending.checkouts || pending.checkouts.length === 0) {
     runtime2.log("No pending checkouts to settle");
@@ -21036,7 +21039,9 @@ async function main() {
   const runner = await Runner.newRunner({ configSchema });
   await runner.run((config) => {
     const cron = new CronCapability;
-    return [handler(cron.trigger({ schedule: config.schedule }), onCronTrigger)];
+    return [
+      handler(cron.trigger({ schedule: config.schedule }), onCronTrigger)
+    ];
   });
 }
 main().catch(sendErrorResponse);
