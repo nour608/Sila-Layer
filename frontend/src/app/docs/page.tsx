@@ -969,10 +969,9 @@ const PHASES = [
     number: "Phase 2",
     title: "The Payment Master Upgrade",
     items: [
-      "Zero-Knowledge (ZK) Compliance Sandbox Preview",
-      "Enterprise Privacy: ZK proofs for Travel Rule compliance",
-      "Payroll & Supplier settlement routing",
+      "Neobank / POS-platform partnerships",
       "Real AE Coin integration (CBUAE sandbox)",
+      "Privacy-preserving settlement for SME & enterprise — ZK proofs among candidates, not yet selected",
     ],
     status: "roadmap",
   },
@@ -980,6 +979,7 @@ const PHASES = [
     number: "Phase 3",
     title: "Extended compliance rails",
     items: [
+      "Payroll & Supplier settlement routing",
       "Comprehensive B2B Treasury Dashboard",
       "White-label SDK for POS platforms",
     ],
