@@ -982,7 +982,6 @@ const PHASES = [
     items: [
       "Comprehensive B2B Treasury Dashboard",
       "White-label SDK for POS platforms",
-      "Multi-chain support (Base, Arbitrum)",
     ],
     status: "roadmap",
   },

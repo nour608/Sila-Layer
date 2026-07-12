@@ -92,4 +92,4 @@ Contract addresses for the frontend are read from `NEXT_PUBLIC_*` env vars (see 
 
 **Phase 2 — production foundations (not built, direction only):** real AE Coin integration pending CBUAE sandbox access; neobank/POS-platform API partnerships; privacy-preserving settlement for SME/enterprise flows (technology — ZK proofs or an alternative — not yet selected, see disclosure above); legal review of licensing scope under UAE Federal Decree-Law No. 6 of 2025.
 
-**Phase 3 — extended (direction only):** multi-chain support; white-label SDK distribution for POS platforms and neobanks.
+**Phase 3 — extended (direction only):** white-label SDK distribution for POS platforms and neobanks.
