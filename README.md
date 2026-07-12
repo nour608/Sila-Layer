@@ -6,8 +6,6 @@ Sila Layer is a B2B settlement router: it lets a merchant's point-of-sale accept
 
 Built for the DIFC/Ignyte "Merchant Payments Need a Blockchain-Native Layer" hackathon track, on Polygon Amoy testnet.
 
-> **This is a routing/orchestration layer. It makes no licensing claim and performs no KYC.** See Disclosures below before reading anything else in this document as a claim of production-readiness.
-
 ---
 
 ## How it works
@@ -84,7 +82,6 @@ Contract addresses for the frontend are read from `NEXT_PUBLIC_*` env vars (see 
 ## Disclosures
 
 - **AED-PT is a simulated token.** No public AE Coin developer sandbox exists to integrate against at time of submission.
-- **ConversionVault's exchange rate is owner-set, not oracle-sourced.** No Chainlink AED/USD price feed was found to exist on Polygon at time of research.
 - **Merchant registration is admin-attested, not KYC/licensed.** This system does not verify merchant licensing status.
 - **This is a routing/orchestration layer, not a licensed payment service, and makes no regulatory approval claim.** A production deployment would require integration with a licensed payment service provider and legal review of licensing scope under UAE law.
 - **Testnet only.** Runs on Polygon Amoy — no real funds at risk.
